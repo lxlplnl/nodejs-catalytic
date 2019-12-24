@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import mongoose from 'mongoose';
 import User from './models/user';
 
@@ -8,6 +9,12 @@ const connectDb = () => {
     useUnifiedTopology: true,
   });
 };
+
+mongoose.connection
+  .once('open', () => console.info('Connected!'))
+  .on('error', error => {
+    console.error('Error : ', error);
+  });
 const models = { User };
 export { connectDb };
 

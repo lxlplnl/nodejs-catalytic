@@ -2,14 +2,17 @@ module.exports = {
   "env": {
     "es6": true,
     "node": true,
+    "jest/globals": true
   },
   "parser": "babel-eslint",
   "extends": [
     "airbnb-base",
     "prettier",
+    "plugin:jest/recommended",
   ],
   "plugins": [
     "prettier",
+    "jest",
   ],
   "rules": {
     "max-len": [
