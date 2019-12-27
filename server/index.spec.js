@@ -1,16 +1,24 @@
+import { expect } from 'chai';
 import { spy } from 'sinon';
+import { describe, it } from 'mocha';
 
-test('true or false', () => {
-  expect(true).toBe(true);
-  expect(false).toBe(false);
+describe('true or false', () => {
+  it('true is true', () => {
+    expect(true).to.eql(true);
+  });
+  it('false is false', () => {
+    expect(false).to.eql(false);
+  });
 });
 
 function callMyFunction(callback) {
   callback();
 }
 
-test('callMyFunction function', () => {
-  const callback = spy();
-  callMyFunction(callback);
-  expect(callback.called).toBe(true);
+describe('callMyFunction function', () => {
+  it('callback function called', () => {
+    const callback = spy();
+    callMyFunction(callback);
+    expect(callback.called).to.eql(true);
+  });
 });
