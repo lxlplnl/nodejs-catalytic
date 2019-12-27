@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 import mongoose from 'mongoose';
-import User from './models/user';
 
 const connectDb = () => {
   return mongoose.connect(process.env.DATABASE_URL, {
@@ -15,7 +14,5 @@ mongoose.connection
   .on('error', error => {
     console.error('Error : ', error);
   });
-const models = { User };
-export { connectDb };
 
-export default models;
+export default { connectDb };

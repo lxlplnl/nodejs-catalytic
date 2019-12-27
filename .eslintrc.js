@@ -2,17 +2,20 @@ module.exports = {
   "env": {
     "es6": true,
     "node": true,
-    "jest/globals": true
+    "mocha": true,
   },
   "parser": "babel-eslint",
   "extends": [
     "airbnb-base",
     "prettier",
-    "plugin:jest/recommended",
+    "plugin:chai-expect/recommended",
+    "plugin:mocha/recommended",
   ],
   "plugins": [
     "prettier",
-    "jest",
+    "mocha",
+    "chai-friendly",
+    "chai-expect",
   ],
   "rules": {
     "max-len": [
@@ -33,6 +36,19 @@ module.exports = {
     ],
     "global-require": 1,
     "no-underscore-dangle": 0,
+    "mocha/no-mocha-arrows": 0,
+    "func-names": 0,
+    "consistent-return": 0,
+    "chai-expect/no-inner-compare": 2,
+    "chai-expect/no-inner-literal": 2,
+    "chai-expect/missing-assertion": 2,
+    "chai-expect/terminating-properties": 2,
+    "no-unused-vars": [
+      "error",
+      {
+        "varsIgnorePattern": "should|expect"
+      }
+    ]
   },
   "globals": {
     "process": true,

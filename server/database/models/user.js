@@ -1,13 +1,49 @@
 import mongoose from 'mongoose';
+import * as bcrypt from 'bcrypt';
 
-const userSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    unique: true,
+const UserSchema = new mongoose.Schema(
+  {
+    username: {
+      type: String,
+      required: true,
+      index: { unique: true },
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    firstName: {
+      type: String,
+      required: true,
+    },
+    lastName: {
+      type: String,
+      required: true,
+    },
   },
+  {
+    timestamps: true,
+  },
+);
+
+UserSchema.pre('save', next => {
+  const user = this;
+
+  if (!user.isModified('password')) return next();
+
+  bcrypt.genSalt(10, (err, salt) => {
+    if (err) return next(err);
+
+    bcrypt.hash(user.password, salt, (err2, hash) => {
+      if (err2) return next(err2);
+
+      user.password = hash;
+      next();
+    });
+  });
 });
 
-userSchema.statics.findByLogin = async function(login) {
+UserSchema.statics.findByLogin = async function(login) {
   let user = await this.findOne({
     username: login,
   });
@@ -16,6 +52,7 @@ userSchema.statics.findByLogin = async function(login) {
   }
   return user;
 };
-const User = mongoose.model('User', userSchema);
+
+const User = mongoose.model('User', UserSchema);
 
 export default User;
