@@ -15,6 +15,11 @@ const app = express();
 
 app.use(cors());
 app.use(uuidMV);
+
+morgan.token('id', function getId(req) {
+  return req.id;
+});
+
 app.use(
   morgan(
     ':id :date[iso] :status :method\t  :res[content-length]\t :response-time ms\t :url',
@@ -26,13 +31,10 @@ app.use(
   ),
 );
 
-morgan.token('id', function getId(req) {
-  return req.id;
-});
 app.use(
   jwtMV({
     secret: process.env.JWT_SECRET,
-    credentialsRequired: false,
+    credentialsRequired: true,
   }).unless({ path: ['/login'] }),
 );
 
@@ -61,7 +63,7 @@ app.post('/login', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  return res.end('Received a POST HTTP method');
+  return res.end('Received a GET HTTP method');
 });
 
 app.post('/', (req, res) => {
