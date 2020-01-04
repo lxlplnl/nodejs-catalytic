@@ -10,15 +10,9 @@ import fs from 'fs';
 import uuidMV from './middlewares/uuidMV';
 import routes from './routes';
 import DB from './database';
+import { isValidEnv } from './util';
 
-if (!process.env.JWT_SECRET) {
-  console.error('FATAL ERROR: JWT_SECRET is not defined.');
-  process.exit(1);
-}
-if (!process.env.DATABASE_URL) {
-  console.error('FATAL ERROR: DATABASE_URL is not defined.');
-  process.exit(1);
-}
+if (!isValidEnv()) process.exit(1);
 
 const app = express();
 app.use(cors());
@@ -62,11 +56,16 @@ app.use((err, req, res, next) => {
 });
 
 DB.connectDb().then(async () => {
-  app.listen(process.env.PORT, () =>
-    console.log(`Example app listening on port ${process.env.PORT}!`),
+  const _PORT = process.env.PORT || 3000;
+  app.listen(_PORT, () =>
+    console.log(`Example app listening on port ${_PORT}!`),
   );
 });
 
 app.use('/session', routes.session);
 app.use('/user', routes.user);
 app.use('/', routes.root);
+
+function sum(a, b) {
+  return a + b;
+}

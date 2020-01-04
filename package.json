@@ -19,8 +19,10 @@
   "devDependencies": {
     "@babel/core": "^7.7.7",
     "@babel/node": "^7.7.7",
+    "@babel/plugin-transform-runtime": "^7.7.6",
     "@babel/preset-env": "^7.7.7",
     "@babel/register": "^7.7.7",
+    "@babel/runtime": "^7.7.7",
     "@types/chai": "^4.2.7",
     "@types/express": "^4.17.2",
     "babel-eslint": "^10.0.3",
@@ -39,12 +41,14 @@
     "jest": "^24.9.0",
     "mocha": "^6.2.2",
     "nodemon": "^2.0.2",
+    "nyc": "^15.0.0",
     "prettier": "^1.19.1",
     "sinon": "^8.0.1"
   },
   "scripts": {
     "start": "nodemon --exec babel-node server/index.js",
-    "test": "mocha --require @babel/register 'server/**/**.spec.js'"
+    "test": "mocha --require @babel/register '__test__/**/**.test.js'",
+    "test:coverage": "nyc --reporter=lcov mocha --require @babel/register '__test__/**/**.test.js'"
   },
   "repository": {
     "type": "git",

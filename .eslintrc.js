@@ -37,6 +37,7 @@ module.exports = {
     "global-require": 1,
     "no-underscore-dangle": 0,
     "mocha/no-mocha-arrows": 0,
+    "import/prefer-default-export": 0,
     "func-names": 0,
     "consistent-return": 0,
     "chai-expect/no-inner-compare": 2,
