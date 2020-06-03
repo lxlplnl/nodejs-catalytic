@@ -1,15 +1,18 @@
-import { expect } from 'chai';
-import { spy } from 'sinon';
-import { describe, it } from 'mocha';
+import { describe } from 'mocha';
+import mongoose, { connectDb } from '../server/database';
+import databaseTests from './database/index.test';
+import routeTests from './routes/index.test';
 
-function callMyFunction(callback) {
-  callback();
-}
+describe('Tests', () => {
+  before(async () => {
+    await connectDb().then(() => mongoose.connection.dropDatabase());
+  });
 
-describe('callMyFunction function', () => {
-  it('callback function called', () => {
-    const callback = spy();
-    callMyFunction(callback);
-    expect(callback.called).to.eql(true);
+  describe('Database Tests', databaseTests);
+  describe('Route Tests', routeTests);
+
+  after(async () => {
+    await mongoose.connection.db.dropDatabase();
+    await mongoose.connection.close();
   });
 });

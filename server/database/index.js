@@ -1,13 +1,11 @@
 /* eslint-disable no-console */
-import mongoose from 'mongoose';
+import { Mongoose } from 'mongoose';
 
-const connectDb = () => {
-  return mongoose.connect(process.env.DATABASE_URL, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-  });
-};
+const mongoose = new Mongoose({
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useUnifiedTopology: true,
+});
 
 mongoose.connection
   .once('open', () => console.info('Connected!'))
@@ -15,4 +13,8 @@ mongoose.connection
     console.error('Error : ', error);
   });
 
-export default { connectDb };
+export const connectDb = () => {
+  return mongoose.connect(process.env.DATABASE_URL);
+};
+
+export default mongoose;

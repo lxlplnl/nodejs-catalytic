@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import 'dotenv/config';
+import './envCheck';
 import express from 'express';
 import cors from 'cors';
 import jwtMV from 'express-jwt';
@@ -9,7 +9,7 @@ import morgan from 'morgan';
 import fs from 'fs';
 import uuidMV from './middlewares/uuidMV';
 import routes from './routes';
-import DB from './database';
+import { connectDb } from './database';
 import { isValidEnv } from './util';
 
 if (!isValidEnv()) process.exit(1);
@@ -55,17 +55,15 @@ app.use((err, req, res, next) => {
   next();
 });
 
-DB.connectDb().then(async () => {
-  const _PORT = process.env.PORT || 3000;
-  app.listen(_PORT, () =>
-    console.log(`Example app listening on port ${_PORT}!`),
-  );
-});
-
 app.use('/session', routes.session);
 app.use('/user', routes.user);
 app.use('/', routes.root);
 
-function sum(a, b) {
-  return a + b;
+export function initApp() {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => console.log(`Example api running on port ${PORT}!`));
 }
+
+if (process.env.NODE_ENV !== 'test') connectDb().then(initApp);
+
+export default app;

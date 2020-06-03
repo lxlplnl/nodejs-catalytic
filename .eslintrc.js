@@ -51,6 +51,14 @@ module.exports = {
       }
     ]
   },
+  "overrides": [
+    {
+      "files": ["__test__/*.test.js"], // Or *.test.js
+      "rules": {
+        "no-unused-expressions": 0
+      }
+    }
+  ],
   "globals": {
     "process": true,
     "window": true

@@ -9,6 +9,7 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
+    "dotenv-expand": "^5.1.0",
     "express": "^4.17.1",
     "express-jwt": "^5.3.1",
     "jsonwebtoken": "^8.5.1",
@@ -26,19 +27,17 @@
     "@types/chai": "^4.2.7",
     "@types/express": "^4.17.2",
     "babel-eslint": "^10.0.3",
-    "babel-jest": "^24.9.0",
     "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-prettier": "^6.7.0",
     "eslint-plugin-chai-expect": "^2.1.0",
     "eslint-plugin-chai-friendly": "^0.5.0",
     "eslint-plugin-import": "^2.19.1",
-    "eslint-plugin-jest": "^23.1.1",
     "eslint-plugin-mocha": "^6.2.2",
     "eslint-plugin-prettier": "^3.1.2",
     "husky": "^3.1.0",
-    "jest": "^24.9.0",
     "mocha": "^6.2.2",
     "nodemon": "^2.0.2",
     "nyc": "^15.0.0",
@@ -47,8 +46,8 @@
   },
   "scripts": {
     "start": "nodemon --exec babel-node server/index.js",
-    "test": "mocha --require @babel/register '__test__/**/**.test.js'",
-    "test:coverage": "nyc --reporter=lcov mocha --require @babel/register '__test__/**/**.test.js'"
+    "test": "NODE_ENV=test mocha --require @babel/register  '__test__/**/**.test.js' --exit",
+    "test:coverage": "NODE_ENV=test nyc --reporter=lcov mocha --require @babel/register '__test__/**/**.test.js' --exit"
   },
   "repository": {
     "type": "git",
@@ -76,5 +75,11 @@
     "hooks": {
       "pre-commit": "yarn test"
     }
+  },
+  "nyc": {
+    "all": true,
+    "include": [
+      "server/**/*.js"
+    ]
   }
 }
