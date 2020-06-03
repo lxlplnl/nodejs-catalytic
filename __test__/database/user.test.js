@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import User from '../../server/database/models/user';
+import User from '../../src/database/models/user';
 
 export default function() {
   it('New user saved to test database', async () => {

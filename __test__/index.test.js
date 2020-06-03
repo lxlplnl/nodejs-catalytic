@@ -1,5 +1,5 @@
 import { describe } from 'mocha';
-import mongoose, { connectDb } from '../server/database';
+import mongoose, { connectDb } from '../src/database';
 import databaseTests from './database/index.test';
 import routeTests from './routes/index.test';
 

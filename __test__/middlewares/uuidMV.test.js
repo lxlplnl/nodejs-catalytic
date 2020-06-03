@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { spy } from 'sinon';
 import { describe, it } from 'mocha';
-import uuidMV from '../../server/middlewares/uuidMV';
+import uuidMV from '../../src/middlewares/uuidMV';
 
 describe('Uuid Middleware Testing', () => {
   it('uuidMV', () => {
