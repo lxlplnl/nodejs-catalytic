@@ -1,11 +1,11 @@
-import chai from 'chai';
+import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../src';
 
 chai.use(chaiHttp);
 chai.should();
 
-export default function() {
+export default function () {
   it('POST: Should be login', async () => {
     await chai
       .request(app)
@@ -14,9 +14,9 @@ export default function() {
         email: 'mike@horsepower.at',
         password: '123456',
       })
-      .end((err, res) => {
-        res.should.have.status(204);
-        res.body.should.be.a('object');
+      .then((res) => {
+        expect(res).to.have.status(204);
+        expect(res).to.have.header('x-auth-token');
       });
   });
 }

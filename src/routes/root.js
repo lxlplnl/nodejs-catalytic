@@ -10,19 +10,15 @@ router.post('/login', async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
 
   if (!user) {
-    res.status(400).end();
-    return;
+    return res.status(400).send();
   }
 
-  user
+  return user
     .comparePassword(req.body.password)
-    .then(isMatch => {
+    .then((isMatch) => {
       if (isMatch) {
         const token = user.generateAuthToken();
-        return res
-          .header('x-auth-token', token)
-          .status(204)
-          .send();
+        return res.header('x-auth-token', token).status(204).send();
       }
       return res.status(400).send('Invalid Credentials');
     })

@@ -1,4 +1,4 @@
-import uuid from 'node-uuid';
+import * as uuid from 'uuid';
 
 export default function uuidMV(req, res, next) {
   req.id = uuid.v4();
