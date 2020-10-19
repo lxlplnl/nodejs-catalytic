@@ -1,5 +1,8 @@
-import userTests from './user.test';
+import { describe } from 'mocha';
+import modelTests from './models/index.test';
+import validationTests from './validations/index.test';
 
-export default function() {
-  describe('User Tests', userTests);
+export default function () {
+  describe('Model Tests', modelTests);
+  describe('Validation Tests', validationTests);
 }

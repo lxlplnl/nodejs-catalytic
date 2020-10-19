@@ -1,7 +1,8 @@
-import 'dotenv/config';
 import { describe } from 'mocha';
-import userTests from './user.test';
+import unauthenticatedTests from './unauthenticated.test';
+import meTest from './me.test';
 
-export default function() {
-  describe('User Routes', userTests);
+export default function () {
+  describe('Unauthenticated Routes', unauthenticatedTests);
+  describe('Me Routes', meTest);
 }

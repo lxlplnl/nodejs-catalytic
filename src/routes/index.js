@@ -1,9 +1,9 @@
-import session from './session';
+import me from './me';
 import user from './user';
-import root from './root';
+import unauthenticated from './unauthenticated';
 
 export default {
-  session,
+  me,
   user,
-  root,
+  unauthenticated,
 };

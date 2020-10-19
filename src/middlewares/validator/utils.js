@@ -16,4 +16,3 @@ export const getValidationError = error => {
   return DataObjectParser.transpose(validationError).data();
 };
 
-export const isAdmin = req => req.isAdmin;
